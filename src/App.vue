@@ -1,18 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <component :is="currentComponent[current]"></component>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from './components/HelloWorld.vue';
-
-@Options({
-  components: {
-    HelloWorld,
-  },
+<script lang="ts" setup>
+import { defineAsyncComponent, markRaw, reactive, ref } from 'vue';
+const current = ref('home')
+const currentComponent= reactive({
+  home: markRaw(defineAsyncComponent(() => import('./components/Home.vue')))
 })
-export default class App extends Vue {}
 </script>
 
 <style>
