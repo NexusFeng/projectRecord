@@ -1,5 +1,7 @@
 <template>
-  <div class="outer"></div>
+  <div class="outer">
+    123
+  </div>
 </template>
 
 <script setup>
@@ -26,7 +28,7 @@ getData(20); */
 // 4.给outer绑定滚动事件，事件中进行下计算
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .outer {
   /* height: 100vh; */
   height: 50vh;

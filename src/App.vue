@@ -1,5 +1,6 @@
 <template>
-  <component :is="currentComponent[current]"></component>
+  <!-- <component :is="currentComponent[current]"></component> -->
+  <router-view/>
 </template>
 
 <script lang="ts" setup>
