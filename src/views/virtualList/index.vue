@@ -1,11 +1,22 @@
 <template>
+  <h4>完整渲染</h4>
   <div class="outer">
-    123
+    <div v-for="(item, index) in 20" :key="index" class="item">{{item}}</div>
+  </div>
+  <h4>虚拟列表</h4>
+  <div class="outer" ref="outer">
+    <div v-for="(item, index) in 20" :key="index" class="item">{{item}}</div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
 // 1.定义静态数据，数据高、设备高、视口最大显示数据条数
+const itemHeight = 100
+let outer = ref()
+onMounted(() => {
+  const deviceHeight = outer.value.clientHeight
+})
 
 // 2.定义动态数据
 // 2.1开始和结束下标
