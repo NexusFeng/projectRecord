@@ -6,7 +6,7 @@
       </colgroup>
       <thead>
         <tr>
-          <th ref="col" v-for="(item, index) in headerData" :key="index">
+          <th ref="colRefs" v-for="(item, index) in headerData" :key="index">
             {{ item.title }}
           </th>
         </tr>
@@ -29,16 +29,39 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref, VNodeRef } from 'vue';
 import data from "./mock.json";
-const headerData = reactive(data.headerData)
+const headerData = reactive<HeaderData[]>(data.headerData)
 const bodyData = reactive(data.bodyData)
 const numArr = reactive<number[][]>([])
-const rowData = reactive<number[][]>([])
+const rowData = reactive<Array<TreeNode[][]>>([])
+const widths = reactive<String[] | Number[]>([])
 let sum = ref(0)
-const getRowData = (data: string | any[]) => {
+const colRefs = ref([])
+
+const itemRefs = []
+// const setItemRef = (el) => {
+//   if (el) {
+//     colRefs.push(el)
+//   }
+// }
+interface HeaderData {
+  id: string,
+  title: string,
+  type: number,
+  width?: string | number
+}
+interface TreeNode {
+  id: string,
+  content: string,
+  contentValue: null,
+  maxRow: number,
+  children: TreeNode[],
+  isTraverse?: boolean
+}
+const getRowData = (data: TreeNode[]) => {
   //遍历树的所有路径
-  const getAllPath = (tree: string | any[]) => {
+  const getAllPath = (tree: TreeNode[]):TreeNode[][] => {
     const paths = []; //记录路径的arr
     for (let i = 0; i < tree.length; i++) {
       //遍历同层次所有节点
@@ -68,10 +91,10 @@ const getRowData = (data: string | any[]) => {
     rowData.push(getAllPath(arr));
   }
 }
-const createTable = (data: string | any[]) => {
+const createTable = (data:TreeNode[]) => {
   //动态计算每大项包含的行总数
   for (let i = 0; i < data.length; i++) {
-    sum += data[i].maxRow;
+    sum.value += data[i].maxRow;
   }
   // 得到行数组
   let k = 0;
@@ -91,6 +114,19 @@ const createTable = (data: string | any[]) => {
   }
   getRowData(data);
 }
+createTable(bodyData)
+onMounted(() => {
+  console.log(colRefs.value, 'colRefs')
+    //得到表头每列的宽度
+    colRefs.value.forEach((item:HTMLTableCellElement, index) => {
+      const width = headerData[index].width
+      if (width) {
+        widths.push(width);
+      } else {
+        widths.push(item.offsetWidth);
+      }
+    });
+})
 </script>
 <style lang="scss" scoped>
 .mainTable {

@@ -9,6 +9,11 @@ const routers = [
     name: 'virtualList',
     component: () => import('../views/virtualList/index.vue')
   },
+  {
+    path: '/createTable',
+    name: 'virtualList',
+    component: () => import('../views/createTable/index.vue')
+  },
 ]
 
 export default routers
