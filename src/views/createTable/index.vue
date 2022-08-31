@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table">
     <table border="1" align="center" class="mainTable">
       <colgroup>
         <col v-for="(width, index) in widths" :key="index" :width="width" />
@@ -35,16 +35,9 @@ const headerData = reactive<HeaderData[]>(data.headerData)
 const bodyData = reactive(data.bodyData)
 const numArr = reactive<number[][]>([])
 const rowData = reactive<Array<TreeNode[][]>>([])
-const widths = reactive<String[] | Number[]>([])
+const widths = reactive<(string | number)[]>([])
 let sum = ref(0)
 const colRefs = ref([])
-
-const itemRefs = []
-// const setItemRef = (el) => {
-//   if (el) {
-//     colRefs.push(el)
-//   }
-// }
 interface HeaderData {
   id: string,
   title: string,
@@ -116,9 +109,8 @@ const createTable = (data:TreeNode[]) => {
 }
 createTable(bodyData)
 onMounted(() => {
-  console.log(colRefs.value, 'colRefs')
     //得到表头每列的宽度
-    colRefs.value.forEach((item:HTMLTableCellElement, index) => {
+    colRefs.value.forEach((item:HTMLElement, index) => {
       const width = headerData[index].width
       if (width) {
         widths.push(width);
@@ -129,6 +121,9 @@ onMounted(() => {
 })
 </script>
 <style lang="scss" scoped>
+.table {
+  margin: 30px 30px 0 30px;
+}
 .mainTable {
   width: 100%;
   border-collapse: collapse;
