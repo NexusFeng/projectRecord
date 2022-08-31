@@ -29,7 +29,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref, VNodeRef } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import data from "./mock.json";
 const headerData = reactive<HeaderData[]>(data.headerData)
 const bodyData = reactive(data.bodyData)
@@ -63,7 +63,7 @@ const getRowData = (data: TreeNode[]) => {
         const res = getAllPath(tree[i].children); 
         for (let j = 0; j < res.length; j++) {
           if (!tree[i].isTraverse) {
-            // 添加过得加标识 子节点返回后将其返回的路径与自身拼接
+            // 添加过的加标识 子节点返回后将其返回的路径与自身拼接
             paths.push([tree[i], ...res[j]]);
             tree[i].isTraverse = true;
           } else {
@@ -79,17 +79,14 @@ const getRowData = (data: TreeNode[]) => {
     }
     return paths;
   };
+  // 遍历每个大项下边的所有路径
   for (let item of data) {
     let arr = [item];
     rowData.push(getAllPath(arr));
   }
 }
 const createTable = (data:TreeNode[]) => {
-  //动态计算每大项包含的行总数
-  for (let i = 0; i < data.length; i++) {
-    sum.value += data[i].maxRow;
-  }
-  // 得到行数组
+  // 得到每条数据行数组- 该数组也可做计算行序号用
   let k = 0;
   while (k < data.length) {
     let arr1 = [];
@@ -109,7 +106,7 @@ const createTable = (data:TreeNode[]) => {
 }
 createTable(bodyData)
 onMounted(() => {
-    //得到表头每列的宽度
+    //得到表头每列的宽度-如果没有自定义宽度就取元素宽度
     colRefs.value.forEach((item:HTMLElement, index) => {
       const width = headerData[index].width
       if (width) {
