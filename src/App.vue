@@ -4,11 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, markRaw, reactive, ref } from 'vue';
-const current = ref('home')
-const currentComponent= reactive({
-  home: markRaw(defineAsyncComponent(() => import('./components/Home.vue')))
-})
+
 </script>
 
 <style>
