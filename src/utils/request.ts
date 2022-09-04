@@ -3,9 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 
 // request 不支持泛型
 // request.get post put支持响应数据泛型
-const request = axios.create({
-  // baseURL: import.meta.env.VITE_APP_TITLE
-})
+const request = axios.create({})
 
 // 添加请求拦截器
 request.interceptors.request.use(function (config) {
