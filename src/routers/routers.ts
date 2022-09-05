@@ -14,6 +14,11 @@ const routers = [
     name: 'virtualList',
     component: () => import('../views/createTable/index.vue')
   },
+  {
+    path: '/LargeFileUpload',
+    name: 'largeFileUpload',
+    component: () => import('../views/largeFileUpload/index.vue')
+  },
 ]
 
 export default routers
