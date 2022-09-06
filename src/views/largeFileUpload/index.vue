@@ -33,17 +33,19 @@
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 import { upload, merge } from '../../api/largeFileUpload'
 
 // 10MB
 // const SIZE = 10 * 1024 * 1024
 const SIZE = 1 * 1024 * 1024
 interface ContainerType{
-  file: File | null
+  file: File | null,
+  hash: string
 }
 const container = reactive<ContainerType>({
-  file:null
+  file:null,
+  hash: ''
 })
 let data = reactive<{chunk:Blob,hash:string,index:number,percentage:number,size:number}[]>([])
 const fakeUploadPercentage = ref(0)
@@ -114,7 +116,12 @@ const uploadChunks = async() => {
 }
 const mergeRequest = async() => {
   if(!container.file) return
-  await merge(container.file.name)
+  const data = {
+    size: SIZE,
+    fileHash: container.hash,
+    filename: container.file.name
+  }
+  await merge(data)
 }
 </script>
 

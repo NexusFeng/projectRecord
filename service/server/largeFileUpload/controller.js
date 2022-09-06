@@ -5,7 +5,6 @@ const fse = require("fs-extra");
 // 提取后缀名
 // get file extension
 const extractExt = filename => {
-  console.log(filename, 'filename')
   filename.slice(filename.lastIndexOf("."), filename.length);
 }
 

@@ -10,14 +10,19 @@ export const upload = (formData: FormData, onUploadProgress: (e:ProgressEvent) =
   }) 
 }
 
+interface FileData{
+  size: number,
+  fileHash: string,
+  filename: string
+}
 // 合并
-export const merge = (name:string) => {
+export const merge = (data:FileData) => {
   return request({
     url: 'http://localhost:3000/merge',
     method: 'post',
     headers: {
       'content-type': 'application/json'
     },
-    data: name
+    data: JSON.stringify(data)
   }) 
 }
