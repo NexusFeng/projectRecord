@@ -24,7 +24,7 @@
         <template v-slot="{ row }">
           <el-progress
             :percentage="row.percentage"
-            color="#909399"
+            status="success"
           ></el-progress>
         </template>
       </el-table-column>
@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { upload, merge } from '../../api/largeFileUpload'
 
 // 10MB
@@ -60,7 +60,7 @@ const handleFileChange = (e:Event) => {
 const handleUpload = async() => {
   if(!container.file) return
   const fileChunkList = createFileChunk(container.file)
-  data = fileChunkList.map(({file}, index) => ({
+  let fileData = fileChunkList.map(({file}, index) => ({
     chunk: file,
     index,
     size: file.size,
@@ -68,6 +68,7 @@ const handleUpload = async() => {
     hash: container.file?.name + '-' + index,
     percentage:0
   }))
+  data.push(...fileData)
   await uploadChunks()
 }
 
