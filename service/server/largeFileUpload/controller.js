@@ -15,8 +15,6 @@ const UPLOAD_DIR = path.resolve(__dirname, "..", "target");
 
 // 创建临时文件夹用于临时存储 chunk
 // 添加 chunkDir 前缀与文件名做区分
-// create a directory for temporary storage of chunks
-// add the 'chunkDir' prefix to distinguish it from the chunk name
 const createChunkDir = fileHash =>
   path.resolve(UPLOAD_DIR, `chunkDir_${fileHash}`);
 
@@ -123,8 +121,7 @@ module.exports = class {
       }
       const [chunk] = files.chunk;
       const [hash] = fields.hash;
-      // const [fileHash] = fields.fileHash;
-      const [fileHash] = '104644';
+      const [fileHash] = fields.fileHash;
       const [filename] = fields.filename;
       const filePath = path.resolve(
         UPLOAD_DIR,

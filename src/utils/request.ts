@@ -18,6 +18,7 @@ request.interceptors.request.use(function (config) {
 request.interceptors.response.use(function (response) {
   const status = response.data.status
   // 正常情况
+
   if(!status || status === 200) {
     return response
   }
@@ -37,8 +38,9 @@ request.interceptors.response.use(function (response) {
   return Promise.reject(error);
 });
 
-export default <T = any>(config:AxiosRequestConfig) => {
-  return request(config).then(res => {
-    return res.data.data as T
-  })
-}
+// export default <T = any>(config:AxiosRequestConfig) => {
+//   return request(config).then(res => {
+//     return res.data.data as T
+//   })
+// }
+export default request
