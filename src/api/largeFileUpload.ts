@@ -44,3 +44,11 @@ export const verify = (filename:string, fileHash:string) => {
     data: JSON.stringify({filename,fileHash})
   }) 
 }
+
+// 删除
+export const remove = () => {
+  return request({
+    url: 'http://localhost:3000/delete',
+    method: 'post'
+  }) 
+}

@@ -4,9 +4,7 @@ const fse = require("fs-extra");
 
 // 提取后缀名
 // get file extension
-const extractExt = filename => {
-  filename.slice(filename.lastIndexOf("."), filename.length);
-}
+const extractExt = filename => filename.slice(filename.lastIndexOf("."), filename.length);
 
 
 // 大文件存储目录

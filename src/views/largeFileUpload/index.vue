@@ -1,30 +1,31 @@
 <template>
-  <div>
-    <input type="file" @change="handleFileChange" />
-    <el-button @click="handleUpload">上传</el-button>
-    <el-button @click="resumeUpload" v-if="status === Status.pause">恢复上传</el-button>
-    <el-button @click="pauseUpload" v-else :disabled="status !== Status.uploading || !container.hash">暂停上传</el-button>
+  <input type="file" @change="handleFileChange" />
+  <div style="margin: 20px;">
+    <el-button @click="handleUpload" type="primary" >上传</el-button>
+    <el-button @click="resumeUpload" v-if="status === 'pause'" type="warning">恢复上传</el-button>
+    <el-button @click="pauseUpload" v-else :disabled="status !=='uploading' || !container.hash" type="warning">暂停上传</el-button>
+    <el-button @click="handleDelete()" type="danger">删除文件</el-button>
   </div>
   <div>
     <div>
-      <div>calculate chunk hash</div>
-      <el-progress :percentage="hashPercentage"></el-progress>
+      <div>文件hash值计算进度</div>
+      <el-progress :percentage="hashPercentage" :stroke-width="12"></el-progress>
     </div>
     <div>
-      <div>percentage</div>
-      <el-progress :percentage="fakeUploadPercentage"></el-progress>
+      <div>上传总进度</div>
+      <el-progress :percentage="fakeUploadPercentage" :stroke-width="12"></el-progress>
     </div>
   </div>
   <el-table :data="data">
-    <el-table-column prop="hash" label="chunk hash" align="center"></el-table-column>
-    <el-table-column label="size(KB)" align="center" width="120">
+    <el-table-column prop="hash" label="切片hash名称" align="center"></el-table-column>
+    <el-table-column label="大小(KB)" align="center" width="120">
       <template v-slot="{ row }">
         {{ row.size }}
       </template>
     </el-table-column>
-    <el-table-column label="percentage" align="center">
+    <el-table-column label="切片上传进度" align="center">
       <template v-slot="{ row }">
-        <el-progress :percentage="row.percentage" status="success"></el-progress>
+        <el-progress :percentage="row.percentage" :status="row.percentage==100?'success':''"></el-progress>
       </template>
     </el-table-column>
   </el-table>
@@ -33,9 +34,8 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 import { reactive, ref, watch } from 'vue';
-import { upload, merge, verify } from '../../api/largeFileUpload'
+import { upload, merge, verify, remove } from '../../api/largeFileUpload'
 import { ElMessage } from 'element-plus'
-import { resolve } from 'path';
 // 10MB
 // const SIZE = 10 * 1024 * 1024
 const SIZE = 1 * 1024 * 1024
@@ -58,7 +58,17 @@ let data = reactive<{ chunk: Blob, hash: string, index: number, percentage: numb
 const fakeUploadPercentage = ref(0)
 const hashPercentage = ref(0)
 let requestLists: AbortController[] = []
-const status = ref(Status.wait)
+let status = ref(Status.wait)
+
+// 删除方法
+const handleDelete = (flag:boolean = true) => {
+  remove().then(() => {
+    flag && ElMessage.success('删除成功')
+    fakeUploadPercentage.value = 0
+    hashPercentage.value = 0
+    data.splice(0)
+  })
+}
 
 // 上传方法
 const handleFileChange = (e: Event) => {
@@ -90,6 +100,7 @@ const verifyUpload = async(filename: string, fileHash: string) => {
 
 // 上传按钮方法
 const handleUpload = async () => {
+  status.value = Status.uploading;
   if (!container.file) return
   const fileChunkList = createFileChunk(container.file)
   container.hash = await calculateHash(fileChunkList)
@@ -125,7 +136,7 @@ const pauseUpload = () => {
 const resumeUpload = async() => {
   if(!container.file) return
   const { uploadedList } = await verifyUpload(container.file.name, container.hash)
-  await uploadChunks(uploadedList)
+  uploadChunks(uploadedList)
 }
 
 // 生成文件切片
@@ -154,7 +165,7 @@ watch(uploadPercentage, (val) => {
   if (val > fakeUploadPercentage.value) fakeUploadPercentage.value = val
 })
 // 上传切片
-const uploadChunks = async(uploadedList:{}[] = []) => {
+const uploadChunks = (uploadedList:{}[] = []) => {
   const requestList = data.filter(({hash}) => !uploadedList.includes(hash))
   .map(({ chunk, hash, index }) => {
     const formData = new FormData()
@@ -164,22 +175,24 @@ const uploadChunks = async(uploadedList:{}[] = []) => {
     formData.append('fileHash', container.hash)
     return { formData, index }
   }).map(({ formData, index }) => {
-    upload(formData, createProcessHandle(data[index]), requestLists)
+    return upload(formData, createProcessHandle(data[index]), requestLists)
   })
-  await Promise.all(requestList)
-  // 合并切片 之前上传的切片数量 + 本次上传的切片数量 === 所有切片数量时合并
-  if(uploadedList.length + requestLists.length === data.length) {
-    await mergeRequest()
-  }
+  Promise.all(requestList).then(() => {
+    mergeRequest()
+  })
+
 }
-const mergeRequest = async () => {
+const mergeRequest = () => {
   if (!container.file) return
   const data = {
     size: SIZE,
     fileHash: container.hash,
     filename: container.file.name
   }
-  await merge(data)
+  merge(data).then(() => {
+    ElMessage.success('文件上传成功')
+    status.value = Status.wait
+  })
 }
 </script>
 
