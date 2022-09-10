@@ -70,7 +70,7 @@ const handleDelete = (flag:boolean = true) => {
   })
 }
 
-// 上传方法
+// input上传文件
 const handleFileChange = (e: Event) => {
   const target = e.target as HTMLInputElement
   const [file] = (target.files as FileList)
@@ -155,12 +155,13 @@ const createProcessHandle = (item: { percentage: number }) => {
     item.percentage = parseInt(String((e.loaded / e.total) * 100))
   }
 }
-// 总进度条
+// 总上传进度
 const uploadPercentage = computed(() => {
   if (!container.file || !data.length) return 0
   const loaded = data.map(item => item.size * item.percentage).reduce((acc, cur) => acc + cur)
   return parseInt((loaded / container.file.size).toFixed(2))
 })
+// 总文件上传进度条
 watch(uploadPercentage, (val) => {
   if (val > fakeUploadPercentage.value) fakeUploadPercentage.value = val
 })
