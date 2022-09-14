@@ -52,3 +52,8 @@ https://nexusfeng.github.io/vue-table-scroll/
 - 首先利用`querySelector`获取当前单元格的dom节点
 - `range.setStart()`设置range的起点(参数为当前节点,偏移量为0),`range.setEnd()`设置range的终点(参数为当前节点,偏移量为当前节点的宽度)
 - `range.getBoundingClientRect()`得到当前文本区域的视窗坐标(left: 文本区域左侧距离视窗左侧的距离,top: 文本区域上侧距离视窗顶部的距离,right: 文本区域右侧距离视窗左侧的距离, bottom: 文本区域下侧距离视窗顶部的距离),通过`width`属性可以拿到文本的长度,判断该长度大于当前单元格的长度,就证明该单元格需要设置`tooltip`
+- 创建一个vue实例,调用`$mount()`生成dom节点,将其添加至`body`中,通过`display`控制显隐
+- tooltip两部分组成,小三角和文本区域,距离顶部距离为`range.getBoundingClientRect().top`,距离左边距离为`range.getBoundingClientRect().left`,小三角距离左边距离为`range.getBoundingClientRect().left + 单元格长度的一半`让其处于中间位置
+
+页面自适应
+- 挂载组件时添加一个尺寸变化函数,当监听到函数变化时,调用`updateColumns`方法来更新表格列宽度
