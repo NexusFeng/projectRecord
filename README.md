@@ -1,19 +1,12 @@
 # projectrecord
-
-## Project setup
+关于项目的一些记录
+## 安装环境/需要服务端的也需要在service文件夹下安装环境
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 运行
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
