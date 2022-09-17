@@ -30,13 +30,13 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
-import data from "./mock.json";
+import data from "./mock1.json";
 const headerData = reactive<HeaderData[]>(data.headerData)
 const bodyData = reactive(data.bodyData)
 const numArr = reactive<number[][]>([])
 const rowData = reactive<Array<TreeNode[][]>>([])
 const widths = reactive<(string | number)[]>([])
-let sum = ref(0)
+let idSets = new Set()
 const colRefs = ref([])
 interface HeaderData {
   id: string,
@@ -62,8 +62,9 @@ const getRowData = (data: TreeNode[]) => {
         //如果有子节点便继续深入，直到到达叶子节点
         const res = getAllPath(tree[i].children); 
         for (let j = 0; j < res.length; j++) {
-          if (!tree[i].isTraverse) {
+          if (!tree[i].isTraverse && !idSets.has(tree[i].id)) {
             // 添加过的加标识 子节点返回后将其返回的路径与自身拼接
+            idSets.add(tree[i].id)
             paths.push([tree[i], ...res[j]]);
             tree[i].isTraverse = true;
           } else {
@@ -83,6 +84,7 @@ const getRowData = (data: TreeNode[]) => {
   for (let item of data) {
     let arr = [item];
     rowData.push(getAllPath(arr));
+    console.log(rowData, 'rowData')
   }
 }
 const createTable = (data:TreeNode[]) => {

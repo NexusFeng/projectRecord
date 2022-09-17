@@ -1,0 +1,256 @@
+{
+  "headerData": [
+    { "id": "1", "title": "作业项目", "type": 1 },
+    { "id": "3", "title": "工作内容", "type": 2 },
+    { "id": "4", "title": "作业要求", "type": 2 },
+    { "id": "5", "title": "作业岗位", "type": 2 },
+    { "id": "6", "title": "作业负责人", "type": 3 },
+    { "id": "7", "title": "监督人", "type": 1 },
+    { "id": "8", "title": "备注", "type": 1 }
+  ],
+  "bodyData": [
+    {
+      "id": "1",
+      "content": "作业项目1",
+      "contentValue": null,
+      "maxRow": 5,
+      "children": [
+        {
+          "id": "6",
+          "content": "工作内容1",
+          "contentValue": null,
+          "maxRow": 2,
+          "children": [
+            {
+              "id": "22",
+              "content": "作业要求1",
+              "contentValue": null,
+              "maxRow": null,
+              "children": [
+                {
+                  "id": "456",
+                  "content": "作业岗位1",
+                  "contentValue": null,
+                  "maxRow": 2,
+                  "hasChildren": true,
+                  "children": [
+                    {
+                      "id": "39",
+                      "content": "作业负责人",
+                      "contentValue": null,
+                      "maxRow": 5,
+                      "hasChildren": true,
+                      "children": [
+                        {
+                          "id": "555",
+                          "content": "监督人1",
+                          "contentValue": null,
+                          "maxRow": null,
+                          "hasChildren": true,
+                          "children": [
+                            {
+                              "id": "666",
+                              "content": "备注",
+                              "contentValue": null,
+                              "maxRow": null,
+                              "depth": 7,
+                              "hasChildren": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "hasChildren": true
+            },
+            {
+              "id": "222",
+              "content": "作业要求2",
+              "contentValue": null,
+              "maxRow": null,
+              "children": [
+                {
+                  "id": "456",
+                  "content": "作业岗位1",
+                  "contentValue": null,
+                  "maxRow": null,
+                  "hasChildren": true,
+                  "children": [
+                    {
+                      "id": "39",
+                      "content": "作业负责人",
+                      "contentValue": null,
+                      "maxRow": null,
+                      "hasChildren": true,
+                      "children": [
+                        {
+                          "id": "32222",
+                          "content": "监督人2",
+                          "contentValue": null,
+                          "maxRow": null,
+                          "hasChildren": true,
+                          "children": [
+                            {
+                              "id": "44559",
+                              "content": "备注",
+                              "contentValue": null,
+                              "maxRow": null,
+                              "hasChildren": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "hasChildren": true
+            }
+          ],
+          "hasChildren": true
+        },
+        {
+          "id": "7",
+          "content": "工作内容2",
+          "contentValue": null,
+          "maxRow": 3,
+          "children": [
+            {
+              "id": "23",
+              "content": "作业要求3",
+              "contentValue": null,
+              "maxRow": null,
+              "children": [
+                {
+                  "id": "45666",
+                  "content": "作业岗位2",
+                  "contentValue": null,
+                  "maxRow": 3,
+                  "hasChildren": true,
+                  "children": [
+                    {
+                      "id": "39",
+                      "content": "作业负责人",
+                      "contentValue": null,
+                      "maxRow": 5,
+                      "hasChildren": true,
+                      "children": [
+                        {
+                          "id": "393",
+                          "content": "监督人3",
+                          "contentValue": null,
+                          "maxRow": null,
+                          "hasChildren": true,
+                          "children": [
+                            {
+                              "id": "394",
+                              "content": "备注",
+                              "contentValue": null,
+                              "maxRow": null,
+                              "hasChildren": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "hasChildren": true
+            },
+            {
+              "id": "24",
+              "content": "作业要求4",
+              "contentValue": null,
+              "maxRow": null,
+              "children": [
+                {
+                  "id": "45666",
+                  "content": "作业岗位2",
+                  "contentValue": null,
+                  "maxRow": null,
+                  "hasChildren": true,
+                  "children": [
+                    {
+                      "id": "39",
+                      "content": "作业负责人",
+                      "contentValue": null,
+                      "maxRow": null,
+                      "hasChildren": true,
+                      "children": [
+                        {
+                          "id": "329",
+                          "content": "监督人4",
+                          "contentValue": null,
+                          "maxRow": null,
+                          "hasChildren": true,
+                          "children": [
+                            {
+                              "id": "3449",
+                              "content": "备注",
+                              "contentValue": null,
+                              "maxRow": null,
+                              "hasChildren": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "hasChildren": false
+            },
+            {
+              "id": "25",
+              "content": "作业要求5",
+              "contentValue": null,
+              "maxRow": null,
+              "children": [
+                {
+                  "id": "45666",
+                  "content": "作业岗位2",
+                  "contentValue": null,
+                  "maxRow": null,
+                  "hasChildren": true,
+                  "children": [
+                    {
+                      "id": "39",
+                      "content": "作业负责人",
+                      "contentValue": null,
+                      "maxRow": null,
+                      "hasChildren": true,
+                      "children": [
+                        {
+                          "id": "3er9",
+                          "content": "监督人5",
+                          "contentValue": null,
+                          "maxRow": null,
+                          "hasChildren": true,
+                          "children": [
+                            {
+                              "id": "39tt",
+                              "content": "备注",
+                              "contentValue": null,
+                              "maxRow": null,
+                              "hasChildren": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "hasChildren": false
+            }
+          ],
+          "hasChildren": true
+        }
+      ],
+      "hasChildren": true
+    }
+  ]
+}
