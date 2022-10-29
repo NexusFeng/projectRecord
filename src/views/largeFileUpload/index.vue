@@ -98,7 +98,7 @@ const verifyUpload = async(filename: string, fileHash: string) => {
   return data
 }
 
-// 上传按钮方法
+// 上传方法
 const handleUpload = async () => {
   status.value = Status.uploading;
   if (!container.file) return
@@ -120,6 +120,7 @@ const handleUpload = async () => {
   data.push(...fileData)
   await uploadChunks(uploadedList)
 }
+// 取消所有切片请求
 const resetData = () => {
   requestLists.forEach(request => {
     request.abort()
@@ -183,6 +184,7 @@ const uploadChunks = (uploadedList:{}[] = []) => {
   })
 
 }
+// 合并切片请求
 const mergeRequest = () => {
   if (!container.file) return
   const data = {

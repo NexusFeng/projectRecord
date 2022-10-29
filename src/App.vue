@@ -1,5 +1,4 @@
 <template>
-  <!-- <component :is="currentComponent[current]"></component> -->
   <router-view/>
 </template>
 
