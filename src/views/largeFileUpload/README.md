@@ -43,3 +43,46 @@
 - 利用web worker开启线程不会阻塞主线程
 - 分片过多造成大量http请求,可通过控制并发
 维护一个数组,利用`Promise.race()`,每当数组有一个promise完成，就立即添加,使数组保持最大并发数
+### 解决并发
+```js
+function request(menuIds){
+  let requests = []
+  let max = 3
+  let finish = 0
+  const concurrent = async() => {
+    // 这里得用for循环，会阻止继续往下执行，示例:
+    // async function sum() {
+    //   for(let i = 0; i < 10; i++) {
+    //     console.log(i)
+    //     if(i === 6) await Promise.reject('1')
+    //   }
+    // }
+    // sum()
+    for(let i = 0; i < menuIds.length; i++) {
+      let task = new Promise(resolve => {
+        // ...
+        resolve()
+      }).then(() => {
+        let index = requests.findIndex(t => t === task)
+        requests.splice(index, 1)
+      }).finally(() => {
+        finish++
+      })
+      requests.push(task)
+      if(requests.length === max) {
+        await Promise.race(requests)
+      }
+    }
+  }
+  concurrent()
+  return new Promise(resolve => {
+    let timer = setInterval(() => {
+      if(menuIds.length == finish) {
+        clearInterval(timer)
+        resolve(routes)
+      }
+    },500)
+  })
+  
+}
+```

@@ -16,3 +16,20 @@
 - 利用最大行数,将每条数据的行数用数组表示
 - 利用树的全路径遍历将树的所有路径遍历出来,在遍历过程中标记遍历过的数据
 ![tree](/src/assets/tree.png)
+### 树的全路径遍历算法
+```js
+const getAllPath = (tree) => {
+  const paths = []
+  for(let i = 0; i < tree.length; i++) {
+    if(tree[i].children && tree[i].children.length) {
+      const res = getAllPath(tree[i].children)
+      for(let j = 0; j < res.length; j++) {
+        paths.push([tree[i], ...res])
+      }
+    } else {
+      paths.push([tree[i]])
+    }
+  }
+  return paths
+}
+```
