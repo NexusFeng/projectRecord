@@ -1,6 +1,7 @@
 const multiparty = require("multiparty");
 const path = require("path");
 const fse = require("fs-extra");
+const fs = require("fs");
 
 // 提取后缀名
 // get file extension
@@ -177,5 +178,43 @@ module.exports = class {
         })
       );
     }
+  }
+  // 获取文件大小
+  async getSizes(req, res) {
+    const folderPath = path.resolve(__dirname, "..", "target")
+    fs.readdir(folderPath, (err, files) => {
+      if (err) {
+        res.end(
+          JSON.stringify({
+            code: 404
+          })
+        )
+        return
+      } else {
+        // 过滤掉文件夹中的子文件夹
+        const filteredFiles = files.filter(file => {
+          return !fs.statSync(path.join(folderPath, file)).isDirectory();
+        })
+        if (filteredFiles.length === 0) {
+          res.end(
+            JSON.stringify({
+              code: 400
+            })
+          )
+          return
+        } else {
+          const firstFilePath = path.join(folderPath, filteredFiles[0]);
+          const firstFileDir = path.dirname(firstFilePath)
+          fs.stat(firstFileDir,{ bigint: fs.constants.BIGINT }, (err, stats) => {
+            console.log(stats.size)
+            res.end(
+              JSON.stringify({
+                size: stats.size
+              })
+            )
+          })  
+        }
+      }
+    })
   }
 };

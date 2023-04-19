@@ -5,7 +5,7 @@ export const upload = (formData: FormData, onUploadProgress: (e:ProgressEvent) =
   const controller = new AbortController()
   requestLists.push(controller)
   return request({
-    url: 'http://localhost:3000',
+    url: '/',
     method: 'post',
     data: formData,
     onUploadProgress,
@@ -25,7 +25,7 @@ interface FileData{
 // 合并
 export const merge = (data:FileData) => {
   return request({
-    url: 'http://localhost:3000/merge',
+    url: '/merge',
     method: 'post',
     headers: {
       'content-type': 'application/json'
@@ -36,7 +36,7 @@ export const merge = (data:FileData) => {
 // 验证hash
 export const verify = (filename:string, fileHash:string) => {
   return request({
-    url: 'http://localhost:3000/verify',
+    url: '/verify',
     method: 'post',
     headers: {
       'content-type': 'application/json'
@@ -48,7 +48,22 @@ export const verify = (filename:string, fileHash:string) => {
 // 删除
 export const remove = () => {
   return request({
-    url: 'http://localhost:3000/delete',
+    url: '/delete',
     method: 'post'
+  }) 
+}
+
+// 获取文件大小
+export const getSizes = () => {
+  return request({
+    url: '/getSizes',
+    method: 'get'
+  }) 
+}
+// 下载
+export const download = () => {
+  return request({
+    url: '/download',
+    method: 'get'
   }) 
 }

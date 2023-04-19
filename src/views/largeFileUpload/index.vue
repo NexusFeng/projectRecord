@@ -1,10 +1,13 @@
 <template>
+  <div style="height: 20px;"></div>
   <input type="file" @change="handleFileChange" />
   <div style="margin: 20px;">
-    <el-button @click="handleUpload" type="primary" >上传</el-button>
+    <el-button @click="handleUpload" type="primary" :icon="Upload">上传</el-button>
     <el-button @click="resumeUpload" v-if="status === 'pause'" type="warning">恢复上传</el-button>
     <el-button @click="pauseUpload" v-else :disabled="status !=='uploading' || !container.hash" type="warning">暂停上传</el-button>
-    <el-button @click="handleDelete()" type="danger">删除文件</el-button>
+    <el-button @click="handleDelete" type="danger" :icon="CircleClose">删除文件</el-button>
+    <el-button @click="handleDownload" type="primary" :icon="Download" >下载文件</el-button>
+    <el-icon color="#E6A23C"><Warning /></el-icon><span style="fontSize:10px;">默认下载初始上传的文件</span>
   </div>
   <div>
     <div>
@@ -32,9 +35,10 @@
 </template>
 
 <script lang="ts" setup>
+import { Upload, Download, CircleClose, Warning } from '@element-plus/icons-vue'
 import { computed } from '@vue/reactivity';
 import { reactive, ref, watch } from 'vue';
-import { upload, merge, verify, remove } from '../../api/largeFileUpload'
+import { upload, merge, verify, remove, download, getSizes } from '../../api/largeFileUpload'
 import { ElMessage } from 'element-plus'
 // 10MB
 // const SIZE = 10 * 1024 * 1024
@@ -195,6 +199,15 @@ const mergeRequest = () => {
   merge(data).then(() => {
     ElMessage.success('文件上传成功')
     status.value = Status.wait
+  })
+}
+
+// 下载
+const handleDownload = () => {
+  getSizes().then((res)=> {
+    if(res.data.code == 404) {
+      ElMessage.warning('无上传文件,请上传后下载')
+    }
   })
 }
 </script>

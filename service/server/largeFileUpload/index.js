@@ -7,6 +7,7 @@ const controller = new Controller();
 server.on("request", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
+  // res.setHeader('Access-Control-Allow-Headers', 'Range')
   if (req.method === "OPTIONS") {
     res.status = 200;
     res.end();
@@ -28,6 +29,14 @@ server.on("request", async (req, res) => {
 
   if (req.url === "/delete") {
     await controller.deleteFiles(req, res);
+  }
+
+  if(req.url === "/download") {
+    await controller.download(req, res);
+  }
+
+  if(req.url === "/getSizes") {
+    await controller.getSizes(req, res);
   }
 });
 
