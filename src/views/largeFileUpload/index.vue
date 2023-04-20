@@ -38,7 +38,7 @@
 import { Upload, Download, CircleClose, Warning } from '@element-plus/icons-vue'
 import { computed } from '@vue/reactivity';
 import { reactive, ref, watch } from 'vue';
-import { upload, merge, verify, remove, download, getSizes } from '../../api/largeFileUpload'
+import { upload, merge, verify, remove, download, getSizes } from '../../api/largeFileUpload';
 import { ElMessage } from 'element-plus'
 // 10MB
 // const SIZE = 10 * 1024 * 1024
@@ -202,14 +202,69 @@ const mergeRequest = () => {
   })
 }
 
-// 下载
-const handleDownload = () => {
-  getSizes().then((res)=> {
-    if(res.data.code == 404) {
-      ElMessage.warning('无上传文件,请上传后下载')
-    }
+// 获取文件大小
+const check = () => {
+  return new Promise((resolve, reject) => {
+    getSizes().then((res)=> {
+      if(res.data.code == 404) {
+        ElMessage.warning('无上传文件,请上传后下载')
+        reject()
+      }
+      resolve(res.data.size)
+    })
   })
 }
+
+// 合并切片
+const mergeArrayBuffers = (arrays:ArrayBuffer[]) => {
+  let totalLen = 0
+  for(let arr of arrays) {
+    totalLen += arr.byteLength
+  }
+  let res = new Uint8Array(totalLen)
+  let offset = 0
+  for(let arr of arrays) {
+    let unit8Arr = new Uint8Array(arr)
+    res.set(unit8Arr, offset)
+    offset += unit8Arr.byteLength
+  }
+  return res.buffer
+}
+
+//并发下载
+const concurrencyDownload = async(size: number, slicing: number) => {
+  let chunkNum = Math.ceil(size / slicing)
+
+  const downloadTask = []
+  for(let i = 1; i <= chunkNum; i++) {
+    const rangeStart = slicing * (i - 1)
+    const rangeEnd = i == chunkNum?size - 1:slicing * i - 1
+    downloadTask.push(download(rangeStart, rangeEnd))
+  }
+  const arrayBuffers = await Promise.all(downloadTask.map(task => {
+    return task.then(res => res.data)
+  }))
+  return mergeArrayBuffers(arrayBuffers)
+}
+
+// 下载
+const handleDownload = async () => {
+  try {
+    let size = await check()
+    const res = await concurrencyDownload(size as number,SIZE)
+    const blob = new Blob([res]);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = 'downloaded_file';
+    downloadLink.click();
+  } catch (error) {
+    console.log(error)
+  }
+  
+  
+}
+
+
 </script>
 
 <style lang="scss">

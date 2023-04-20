@@ -61,9 +61,13 @@ export const getSizes = () => {
   }) 
 }
 // 下载
-export const download = () => {
+export const download = (rangeStart: number, rangeEnd: number) => {
   return request({
     url: '/download',
-    method: 'get'
+    method: 'get',
+    headers:{
+      Range: `bytes=${rangeStart}-${rangeEnd}`
+    },
+    responseType: 'arraybuffer'
   }) 
 }

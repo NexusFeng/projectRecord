@@ -77,6 +77,8 @@ const createUploadedList = async fileHash =>
     ? await fse.readdir(path.resolve(UPLOAD_DIR, fileHash))
     : [];
 
+let firstFileDir = ''
+
 module.exports = class {
   // 合并切片
   // merge chunks
@@ -203,10 +205,8 @@ module.exports = class {
           )
           return
         } else {
-          const firstFilePath = path.join(folderPath, filteredFiles[0]);
-          const firstFileDir = path.dirname(firstFilePath)
+          firstFileDir = path.resolve(__dirname, "../target", filteredFiles[0])
           fs.stat(firstFileDir,{ bigint: fs.constants.BIGINT }, (err, stats) => {
-            console.log(stats.size)
             res.end(
               JSON.stringify({
                 size: stats.size
@@ -214,6 +214,34 @@ module.exports = class {
             )
           })  
         }
+      }
+    })
+  }
+
+  // 下载
+  async download(req, res){
+    fs.readFile(firstFileDir, (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.end('Internal Server Error');
+      } else {
+        // 获取文件的总字节数
+        const fileSize = fs.statSync(firstFileDir).size;
+        // 根据请求头中的 Range 字段获取请求的范围
+        const range = req.headers.range;
+        // 解析 Range 字段，获取请求的开始和结束位置
+        const parts = range.replace(/bytes=/, '').split('-');
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+        // 设置响应头的 Content-Range 字段，表示响应的数据范围
+        res.setHeader('Content-Range', `bytes ${start}-${end}/${fileSize}`);
+        // 设置响应头的 Content-Length 字段，表示响应的数据长度
+        res.setHeader('Content-Length', end - start + 1);
+        // 设置响应的状态码为 206 Partial Content，表示范围请求成功
+        res.statusCode = 206;
+        // 创建可读流，并通过 pipe 方法将文件数据传输到响应的可写流中
+        const fileStream = fs.createReadStream(firstFileDir, { start, end });
+        fileStream.pipe(res);
       }
     })
   }
