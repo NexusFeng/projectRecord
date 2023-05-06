@@ -42,6 +42,7 @@ import { upload, merge, verify, remove, download, getSizes } from '../../api/lar
 import { ElMessage } from 'element-plus'
 // 10MB
 // const SIZE = 10 * 1024 * 1024
+// 默认1MB
 const SIZE = 1 * 1024 * 1024
 const Status = {
   wait: 'wait',
@@ -117,7 +118,7 @@ const handleUpload = async () => {
     index,
     fileHash: container.hash,
     size: file.size,
-    // 文件名 + 数组下标
+    // 文件hash + 数组下标
     hash: container.hash + '-' + index,
     percentage: uploadedList.includes(index)?100:0
   }))
