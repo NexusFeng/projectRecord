@@ -1,6 +1,6 @@
 export const mockData = [{
-  name: '张高测',
-  num: 'L001',
+  name: '根节点',
+  num: '001',
   id: 'node1',
   process: 75,
   isPass: false,
@@ -9,27 +9,27 @@ export const mockData = [{
   children:[
     {
       id: 'node2',
-      name: '必修',
+      name: 'node2',
       infoType: 2,
       children: [
         {
-          name: '产业链认知',
+          name: 'node2-1',
           id: 'node2-1',
           infoType: 3,
           children: [
             {
-              name:'光产业发展与应用',
+              name:'node2-1-1',
               id: 'node2-1-1',
               infoType: 4,
               children:[
                 {
-                  name:'光产业发展与应用1',
+                  name:'node2-1-11',
                   id: 'node2-1-11',
                   infoType: 4,
                   children:[]
                 },
                 {
-                  name:'光产业发展与应用2',
+                  name:'node2-1-1-2',
                   id: 'node2-1-1-2',
                   infoType: 4,
                   children:[]
@@ -37,7 +37,7 @@ export const mockData = [{
               ]
             },
             {
-              name:'光产业发展与应用',
+              name:'node2-1-2',
               id: 'node2-1-2',
               infoType: 4,
               children:[]
@@ -45,7 +45,7 @@ export const mockData = [{
           ]
         },
         {
-          name: '异常处理',
+          name: 'node2-2',
           id: 'node2-2',
           infoType: 3,
           children: []
@@ -54,27 +54,27 @@ export const mockData = [{
     },
     {
       id: 'node3',
-      name: '辅修',
+      name: 'node3',
       infoType: 2,
       children: [
         {
-          name: '特殊技能',
+          name: 'node3-1',
           id: 'node3-1',
           infoType: 3,
           children: [
             {
-              name:'光产业发展与应用',
+              name:'node3-1-1',
               id: 'node3-1-1',
               infoType: 4,
               children:[
                 {
-                  name:'光产业发展与应用1',
+                  name:'node3-1-11',
                   id: 'node3-1-11',
                   infoType: 4,
                   children:[]
                 },
                 {
-                  name:'光产业发展与应用2',
+                  name:'node3-1-1-2',
                   id: 'node3-1-1-2',
                   infoType: 4,
                   children:[]
@@ -82,13 +82,13 @@ export const mockData = [{
               ]
             },
             {
-              name:'光产业发展与应用',
+              name:'node3-1-2',
               id: 'node3-1-2',
               infoType: 4,
               children:[]
             },
             {
-              name:'光产业发展与应用',
+              name:'node3-1-3',
               id: 'node3-1-3',
               infoType: 4,
               children:[]
@@ -96,13 +96,13 @@ export const mockData = [{
           ]
         },
         {
-          name: '进阶提升',
+          name: 'node3-2',
           id: 'node3-2',
           infoType: 3,
           children: []
         },
         {
-          name: '进阶提升',
+          name: 'node3-3',
           id: 'node3-3',
           infoType: 3,
           children: []
