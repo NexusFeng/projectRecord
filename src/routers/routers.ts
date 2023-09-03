@@ -19,6 +19,11 @@ const routers = [
     name: 'largeFileUpload',
     component: () => import('../views/largeFileUpload/index.vue')
   },
+  {
+    path: '/X6',
+    name: 'X6',
+    component: () => import('../views/X6/index.vue')
+  },
 ]
 
 export default routers

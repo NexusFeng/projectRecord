@@ -261,8 +261,6 @@ const handleDownload = async () => {
   } catch (error) {
     console.log(error)
   }
-  
-  
 }
 
 

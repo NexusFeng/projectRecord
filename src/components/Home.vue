@@ -20,7 +20,8 @@ const items = reactive<itemType[]>([
   {name: '虚拟列表', path:'/virtualList'},
   {name: '大文件上传', path: '/LargeFileUpload'},
   {name: '动态生成table', path: '/createTable'},
-  {name: '可滚动的表格', path: '/scrollTable'}
+  {name: '可滚动的表格', path: '/scrollTable'},
+  {name: 'X6渲染复杂流程图', path: '/X6'},
 ])
 const goToItem = (path:string) => {
   router.push(path)
