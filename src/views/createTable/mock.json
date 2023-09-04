@@ -1,42 +1,42 @@
 {
   "headerData": [
-    { "id": "1", "title": "作业项目", "type": 1 },
-    { "id": "3", "title": "工作内容", "type": 2 },
-    { "id": "4", "title": "作业要求", "type": 2 },
-    { "id": "5", "title": "作业岗位", "type": 2 },
-    { "id": "6", "title": "作业负责人", "type": 3 },
+    { "id": "1", "title": "项目", "type": 1 },
+    { "id": "3", "title": "内容", "type": 2 },
+    { "id": "4", "title": "要求", "type": 2 },
+    { "id": "5", "title": "岗位", "type": 2 },
+    { "id": "6", "title": "负责人", "type": 3 },
     { "id": "7", "title": "监督人", "type": 1 },
     { "id": "8", "title": "备注", "type": 1 }
   ],
   "bodyData": [
     {
       "id": "1",
-      "content": "作业项目1",
+      "content": "项目1",
       "contentValue": null,
       "maxRow": 5,
       "children": [
         {
           "id": "6",
-          "content": "工作内容1",
+          "content": "内容1",
           "contentValue": null,
           "maxRow": 2,
           "children": [
             {
               "id": "22",
-              "content": "作业要求1",
+              "content": "要求1",
               "contentValue": null,
               "maxRow": null,
               "children": [
                 {
                   "id": "39",
-                  "content": "作业岗位1",
+                  "content": "岗位1",
                   "contentValue": null,
                   "maxRow": null,
                   "hasChildren": true,
                   "children": [
                     {
                       "id": "39",
-                      "content": "作业负责人1",
+                      "content": "负责人1",
                       "contentValue": null,
                       "maxRow": null,
                       "hasChildren": true,
@@ -67,20 +67,20 @@
             },
             {
               "id": "222",
-              "content": "作业要求2",
+              "content": "要求2",
               "contentValue": null,
               "maxRow": null,
               "children": [
                 {
                   "id": "40",
-                  "content": "作业岗位2",
+                  "content": "岗位2",
                   "contentValue": null,
                   "maxRow": null,
                   "hasChildren": true,
                   "children": [
                     {
                       "id": "39",
-                      "content": "作业负责人2",
+                      "content": "负责人2",
                       "contentValue": null,
                       "maxRow": null,
                       "hasChildren": true,
@@ -113,26 +113,26 @@
         },
         {
           "id": "7",
-          "content": "工作内容2",
+          "content": "内容2",
           "contentValue": null,
           "maxRow": 3,
           "children": [
             {
               "id": "23",
-              "content": "作业要求3",
+              "content": "要求3",
               "contentValue": null,
               "maxRow": null,
               "children": [
                 {
                   "id": "45",
-                  "content": "作业岗位3",
+                  "content": "岗位3",
                   "contentValue": null,
                   "maxRow": null,
                   "hasChildren": true,
                   "children": [
                     {
                       "id": "39",
-                      "content": "作业负责人3",
+                      "content": "负责人3",
                       "contentValue": null,
                       "maxRow": null,
                       "hasChildren": true,
@@ -162,20 +162,20 @@
             },
             {
               "id": "24",
-              "content": "作业要求4",
+              "content": "要求4",
               "contentValue": null,
               "maxRow": null,
               "children": [
                 {
                   "id": "47",
-                  "content": "作业岗位4",
+                  "content": "岗位4",
                   "contentValue": null,
                   "maxRow": null,
                   "hasChildren": true,
                   "children": [
                     {
                       "id": "39",
-                      "content": "作业负责人4",
+                      "content": "负责人4",
                       "contentValue": null,
                       "maxRow": null,
                       "hasChildren": true,
@@ -205,20 +205,20 @@
             },
             {
               "id": "25",
-              "content": "作业要求5",
+              "content": "要求5",
               "contentValue": null,
               "maxRow": null,
               "children": [
                 {
                   "id": "48",
-                  "content": "作业岗位5",
+                  "content": "岗位5",
                   "contentValue": null,
                   "maxRow": null,
                   "hasChildren": true,
                   "children": [
                     {
                       "id": "39",
-                      "content": "作业负责人5",
+                      "content": "负责人5",
                       "contentValue": null,
                       "maxRow": null,
                       "hasChildren": true,
